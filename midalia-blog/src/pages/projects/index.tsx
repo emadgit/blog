@@ -16,7 +16,7 @@ const Projects: NextPage = () => {
       </Head>
       <main className="h-screen w-screen overflow-auto">
           <div
-            className="bg-gradient-to-b from-[#393864] to-[#cf6565]  sm:h-fit md:h-full lg:h-full"
+            className="bg-gradient-to-b from-[#393864] to-[#cf6565] h-fit sm:h-full"
             style={{ marginTop: "4px" }}
           >
             <div className="flex w-full flex-col content-center items-center text-white">
@@ -35,7 +35,7 @@ const Projects: NextPage = () => {
                     </Link>
                   </div>
                  
-                  <p className="mt-8 flex w-full flex-1 break-all text-justify text-xl">
+                  <p className="mt-8 flex w-full flex-1 text-center sm:text-justify text-xl">
                     Coming soon!
                   </p>
                   <h5 className="mb-2 mt-8 w-fit flex-1 text-xs font-bold">

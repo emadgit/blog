@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="h-screen w-screen overflow-auto">
           <div
-            className="bg-gradient-to-b from-[#393864] to-[#cf6565]  sm:h-fit md:h-full lg:h-full"
+            className="bg-gradient-to-b from-[#393864] to-[#cf6565] h-fit sm:h-full"
             style={{ marginTop: "4px" }}
           >
             <div className="flex w-full flex-col content-center items-center text-white">
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
                       height={100}
                     />
                   </div>
-                  <p className="mt-8 flex w-full flex-1 break-all text-justify text-xl">
+                  <p className="mt-8 flex w-full flex-1 text-center sm:text-justify text-xl">
                     Hi there! I&apos;m Emad, a Senior Software Engineer with a
                     passion for Web & Mobile developments with collaboration,
                     pair programming, and teaching. Here are some of the
@@ -143,7 +143,7 @@ const Home: NextPage = () => {
                       />
                     </div>
                   </div>
-                  <p className="mt-8 flex w-full flex-1 break-all text-justify text-xl">
+                  <p className="mt-8 flex w-full flex-1 text-center sm:text-justify text-xl">
                     I&apos;m excited to connect with you and discuss how we can build
                     the future together. Feel free to reach out :)
                   </p>
