@@ -37,7 +37,7 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    signIn: async ({ user, account, profile }) => {
+    signIn: async ({ user }) => {
       const allowedUser= await prisma.user.findFirst({});
       return allowedUser?.email === user.email ? true : false;
     },

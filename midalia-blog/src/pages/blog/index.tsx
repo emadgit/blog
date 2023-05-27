@@ -5,7 +5,6 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const user = useSession();
 
   return (
@@ -46,7 +45,14 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
-              {user.data ? `Welcome, ${user.data.user.name}!` : "Welcome to Midal Blog!"}
+              {user.data ? (
+                <>
+                  Welcome, {user.data.user?.name ? user.data.user.name : "User"}
+                  !
+                </>
+              ) : (
+                "Welcome to Midal Blog!"
+              )}
             </p>
             <AuthShowcase />
           </div>
@@ -63,7 +69,7 @@ const AuthShowcase: React.FC = () => {
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (

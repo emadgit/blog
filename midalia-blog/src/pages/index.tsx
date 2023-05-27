@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [items.length]);
   return (
     <>
       <Head>
