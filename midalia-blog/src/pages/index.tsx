@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-
+import { Skills } from '../components/Skills'
 const Home: NextPage = () => {
   const items = [
     "TypeScript",
@@ -17,15 +17,28 @@ const Home: NextPage = () => {
     "Auth0",
     "NextAuth",
   ];
-  const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentItemIndex((prevIndex) => (prevIndex + 1) % items.length);
-    }, 2000);
+    const handleScroll = () => {
+      setIsScrolling(true);
+    };
 
-    return () => clearInterval(interval);
-  }, [items.length]);
+    const handleTouchStart = () => {
+      setIsScrolling(false);
+    };
+
+    window.addEventListener("click", handleScroll);
+    window.addEventListener("wheel", handleScroll);
+    window.addEventListener("touchstart", handleTouchStart);
+
+    return () => {
+      window.removeEventListener("click", handleScroll);
+      window.removeEventListener("wheel", handleScroll);
+
+      window.removeEventListener("touchstart", handleTouchStart);
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -39,38 +52,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#000000] to-[#000000]">
-        <div className="flex h-screen flex-row items-center justify-center">
-          <div
-            className="mb-16 flex min-w-max rounded-none bg-slate-800 p-4 text-slate-100 shadow"
-            style={{ marginTop: "4px" }}
-          >
-            <h3 className="text-lg font-bold">Emad Dehnavi</h3>
-          </div>
-
-          <div className="flex w-24 min-w-max">
-            <ul className="relative list-none">
-              {items.map((item, index) => (
-                <li
-                  key={index}
-                  className={`absolute w-full text-center transition-all duration-500 ${
-                    index === currentItemIndex
-                      ? "top-0 opacity-100"
-                      : "opacity-0"
-                  }`}
-                  style={{
-                    transform: `translateY(${
-                      index === currentItemIndex ? "-100%" : "100%"
-                    })`,
-                  }}
-                >
-                  <div className="flex w-fit min-w-max rounded-lg rounded-l-none bg-slate-700 p-4 text-slate-100 shadow">
-                    <h3 className="text-lg font-bold"> {item}</h3>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <>
+          {!isScrolling ? <Skills skills={items} /> : <div
+                className="mb-16 flex min-w-max rounded-none bg-slate-800 p-4 text-slate-100 shadow"
+                style={{ marginTop: "4px" }}
+              >
+                <h3 className="text-lg font-bold">Alright alright alright... it coming soon!</h3>
+              </div>}
+        </>
       </main>
     </>
   );
