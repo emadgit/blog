@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from 'next/link';
 
 const Home: NextPage = () => {  
   return (
@@ -25,15 +26,15 @@ const Home: NextPage = () => {
                 <div className="justify-left mt-24 flex w-full flex-col">
                   <h1 className="w-fit flex-1 text-4xl font-bold">About</h1>
                   <div className="flex w-full flex-1  flex-row justify-end gap-x-2 text-right">
-                    <a className="text-l border-b-4 font-bold" href="#">
+                    <Link className="text-l border-b-4 font-bold" href="/">
                       About
-                    </a>
-                    <a className="text-l font-bold text-slate-100/70" href="#">
+                    </Link>
+                    <Link className="text-l font-bold text-slate-100/70" href="/posts">
                       Posts
-                    </a>
-                    <a className="text-l font-bold text-slate-100/70" href="#">
+                    </Link>
+                    <Link className="text-l font-bold text-slate-100/70" href="/projects">
                       Projects
-                    </a>
+                    </Link>
                   </div>
                   <div className="flex w-full flex-1 flex-col justify-center">
                     <Image
