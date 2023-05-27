@@ -14,9 +14,9 @@ const Projects: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-screen w-screen overflow-auto">
+      <main className="h-screen w-screen overflow-auto bg-gradient-to-b from-[#393864] to-[#cf6565] ">
           <div
-            className="bg-gradient-to-b from-[#393864] to-[#cf6565] h-fit sm:h-full"
+            className="h-full"
             style={{ marginTop: "4px" }}
           >
             <div className="flex w-full flex-col content-center items-center text-white">
