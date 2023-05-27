@@ -19,7 +19,7 @@ export const Skills: React.FC<SkillsProps> = ({
         <>
         <div className="flex h-screen flex-row items-center justify-center">
               <div
-                className="mb-16 flex min-w-max rounded-none bg-slate-800 p-4 text-slate-100 shadow"
+                className="mb-16 flex min-w-max rounded-lg rounded-r-none bg-slate-800 p-4 text-slate-100 shadow"
                 style={{ marginTop: "4px" }}
               >
                 <h3 className="text-lg font-bold">Emad Dehnavi</h3>
