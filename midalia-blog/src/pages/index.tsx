@@ -1,45 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Skills } from "../components/Skills";
-const Home: NextPage = () => {
-  const items = [
-    "TypeScript",
-    "Next.js",
-    "tRPC",
-    "GraphQL",
-    "Prisma",
-    "React",
-    "React Native",
-    "Tailwind CSS",
-    "Node.js",
-    "AWS",
-    "Auth0",
-    "NextAuth",
-  ];
-  const [isScrolling, setIsScrolling] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolling(true);
-    };
-
-    const handleTouchStart = () => {
-      setIsScrolling(true);
-    };
-
-    window.addEventListener("click", handleScroll);
-    window.addEventListener("wheel", handleScroll);
-    window.addEventListener("touchstart", handleTouchStart);
-
-    return () => {
-      window.removeEventListener("click", handleScroll);
-      window.removeEventListener("wheel", handleScroll);
-
-      window.removeEventListener("touchstart", handleTouchStart);
-    };
-  }, []);
+const Home: NextPage = () => {  
   return (
     <>
       <Head>
@@ -53,13 +16,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-screen w-screen overflow-auto">
-        {!isScrolling ? (
-          <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#000000] to-[#000000]">
-            <>
-              <Skills skills={items} />
-            </>
-          </div>
-        ) : (
           <div
             className="bg-gradient-to-b from-[#393864] to-[#cf6565]  sm:h-fit md:h-full lg:h-full"
             style={{ marginTop: "4px" }}
@@ -258,7 +214,6 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-        )}
       </main>
     </>
   );
