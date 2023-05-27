@@ -36,7 +36,7 @@ const Posts: NextPage = () => {
                   </div>
                  
                   <p className="mt-8 flex w-full flex-1 break-all text-justify text-xl">
-                    There's no post yet, stay tune!
+                    There&apos;s no post yet, stay tuned!
                   </p>
                   <h5 className="mb-2 mt-8 w-fit flex-1 text-xs font-bold">
                     2023 © Emad Dehnavi
