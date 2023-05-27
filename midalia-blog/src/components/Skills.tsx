@@ -17,7 +17,9 @@ export const Skills: React.FC<SkillsProps> = ({
       }, [skills.length]);
     return (
         <>
-        <div className="flex h-screen flex-row items-center justify-center">
+        <div className="flex h-screen flex-col items-center justify-center">
+        <p className="text-xs font-bold text-slate-100">Click anywhere or scroll to start</p>
+        <div className="flex flex-row items-center justify-center">
               <div
                 className="mb-16 flex min-w-max rounded-lg rounded-r-none bg-slate-800 p-4 text-slate-100 shadow"
                 style={{ marginTop: "4px" }}
@@ -49,6 +51,9 @@ export const Skills: React.FC<SkillsProps> = ({
                 </ul>
               </div>
             </div>
+        </div>
+        
+
         </>
     )
 }
