@@ -25,7 +25,7 @@ const Home: NextPage = () => {
     };
 
     const handleTouchStart = () => {
-      setIsScrolling(false);
+      setIsScrolling(true);
     };
 
     window.addEventListener("click", handleScroll);
