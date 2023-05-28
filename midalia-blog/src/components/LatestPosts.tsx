@@ -1,4 +1,4 @@
-export const LatestPosts: React.FC<{}> = () => {
+export const LatestPosts: React.FC = () => {
    
     return (
         <>
@@ -6,12 +6,12 @@ export const LatestPosts: React.FC<{}> = () => {
               <div className="p-4 text-2xl">
                 <h2>Latest posts</h2>
               </div>
-              <div className="ml-4 mr-4 flex flex-row justify-center bg-slate-50 text-center">
+              <div className="ml-4 mr-4 flex flex-row justify-center bg-white text-center border-b-2 border-black">
                 <div className="flex-1">Title</div>
                 <div className="flex-1">Created at</div>
                 <div className="flex-1">Comments</div>
               </div>
-              <div className="ml-4 mr-4 flex flex-row justify-center bg-slate-100 text-center">
+              <div className="ml-4 mr-4 flex flex-row justify-center bg-white text-center">
                 <div className="flex-1">-</div>
                 <div className="flex-1">-</div>
                 <div className="flex-1">0</div>

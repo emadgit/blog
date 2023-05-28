@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export const PageHead: React.FC<{}> = () => {
+export const PageHead: React.FC = () => {
    
     return (
         <Head>

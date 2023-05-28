@@ -1,10 +1,10 @@
 import { type NextPage } from "next";
+import BlogNavbar from "../../../components/BlogNavbar";
 
-import PageHead from "../../components/PageHead";
-import LatestPosts from "../../components/LatestPosts";
-import BlogNavbar from "../../components/BlogNavbar";
+import PageHead from "../../../components/PageHead";
+import CreatePost from "../../../components/CreatePost";
 
-const BlogDashboard: NextPage = () => {
+const NewPost: NextPage = () => {
   return (
     <>
       <PageHead />
@@ -12,7 +12,7 @@ const BlogDashboard: NextPage = () => {
         <div className="flex h-full flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <BlogNavbar />
           <div className="flex flex-1 flex-col bg-white h-fit sm:h-full">
-           <LatestPosts />
+           <CreatePost />
           </div>
         </div>
       </main>
@@ -20,4 +20,4 @@ const BlogDashboard: NextPage = () => {
   );
 };
 
-export default BlogDashboard;
+export default NewPost;
