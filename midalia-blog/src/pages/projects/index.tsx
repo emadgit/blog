@@ -2,18 +2,12 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from 'next/link';
 
+import PageHead from "../../components/PageHead";
+
 const Projects: NextPage = () => {  
   return (
     <>
-      <Head>
-        <title>Emad Dehnavi</title>
-        <meta
-          name="description"
-          content="Emad Dehnavi - Senior Software Engineer"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <PageHead />
       <main className="h-screen w-screen overflow-auto bg-gradient-to-b from-[#393864] to-[#cf6565] ">
           <div
             className="h-full"
