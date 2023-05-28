@@ -60,7 +60,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    blogs         Blog[]
+    bio           Bio?
     posts         Post[]
     comments      Comment[]
 }
@@ -73,15 +73,25 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Blog {
+model Bio {
     id          String   @id @default(cuid())
-    title       String
+    jobTitle    String
     description String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
     ownerId     String   @unique
     owner       User     @relation(fields: [ownerId], references: [id])
-    posts       Post[]
+    skills      Skills[]
+}
+
+model Skills {
+    id        String   @id @default(cuid())
+    title     String
+    url       String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    ownerId   String   @unique
+    owner     Bio      @relation(fields: [ownerId], references: [id])
 }
 
 model Post {
@@ -91,15 +101,12 @@ model Post {
     published    Boolean
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
-    blogId       String
-    blog         Blog           @relation(fields: [blogId], references: [id])
     authorId     String
     author       User           @relation(fields: [authorId], references: [id])
     comments     Comment[]
     categories   Category[]
     PostCategory PostCategory[]
 
-    @@index([blogId])
     @@index([authorId])
 }
 
