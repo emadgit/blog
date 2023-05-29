@@ -1,7 +1,14 @@
-import { Editor, EditorState } from "react-draft-wysiwyg";
+import { EditorState } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const Editor = dynamic(
+  () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
+  {
+    ssr: false,
+  }
+);
 
 export const CreatePost: React.FC = () => {
   const [postEntry, setPostEntry] = useState<EditorState>();
@@ -36,6 +43,13 @@ export const CreatePost: React.FC = () => {
             wrapperClassName="wrapperClassName bg-white flex flex-col h-96"
             editorClassName="editorClassName bg-white"
             onEditorStateChange={handleTextEditorChange}
+            toolbar={{
+              inline: { inDropdown: false },
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true },
+            }}
           />
           <div className="flex flex-row-reverse ">
             <input type="checkbox" className="flex-initial" />{" "}
