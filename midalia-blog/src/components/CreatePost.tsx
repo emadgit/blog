@@ -2,6 +2,9 @@ import { EditorState } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { convertToRaw } from "draft-js";
+import {draftToHtml} from 'draftjs-to-html';
+import ReactHtmlParser from 'react-html-parser'; 
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
@@ -19,8 +22,8 @@ export const CreatePost: React.FC = () => {
 
   const handleNewPost = () => {
     if (postEntry) {
-      // TODO: See how we can store with applied style & font formatting
-      // const plainObject = postEntry.toJS();
+      // formattedPost going to hold a html draft which we store to db and later render it using ReactHtmlParser()
+      const formattedPost = draftToHtml(convertToRaw(postEntry.getCurrentContent()));
     }
     return;
   };
