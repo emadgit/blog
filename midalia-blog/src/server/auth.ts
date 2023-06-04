@@ -6,6 +6,7 @@ import {
   type DefaultSession,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 
@@ -37,10 +38,10 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    signIn: async ({ user }) => {
-      const allowedUser= await prisma.user.findFirst({});
-      return allowedUser?.email === user.email ? true : false;
-    },
+    // signIn: async ({ user }) => {
+    //   const allowedUser= await prisma.user.findFirst({});
+    //   return allowedUser?.email === user.email ? true : false;
+    // },
     session: ({ session, user }) => ({
       ...session,
       user: {
@@ -51,10 +52,14 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
+    }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
+    })
     /**
      * ...add more providers here.
      *

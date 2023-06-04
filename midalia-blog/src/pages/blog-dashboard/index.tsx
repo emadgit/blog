@@ -1,12 +1,24 @@
 import { type NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
+import { useEffect } from "react";
 
 import PageHead from "../../components/PageHead";
 import LatestPosts from "../../components/LatestPosts";
 import BlogNavbar from "../../components/BlogNavbar";
 
 const BlogDashboard: NextPage = () => {
+  const router = useRouter();
+  const { data: sessionData } = useSession();
+
+  useEffect(()=> {
+    if(!sessionData){
+      router.push("/login")
+    }
+  },[sessionData]);
+
   return (
-    <>
+    sessionData && <>
       <PageHead />
       <main className="h-screen w-screen overflow-auto bg-gradient-to-b from-[#ffffff] to-[#ffffff]">
         <div className="flex h-full flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">

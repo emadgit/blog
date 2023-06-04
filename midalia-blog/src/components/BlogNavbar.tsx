@@ -1,5 +1,6 @@
 import { MdOutlineAddBox } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
+import { signOut } from "next-auth/react";
 
 import Link from "next/link";
 
@@ -26,7 +27,7 @@ export const BlogNavbar: React.FC = () => {
         </button>
         <div className="flex h-fit flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <div className="turncate flex h-fit flex-1 flex-col gap-2 bg-neutral-900 text-slate-200 sm:h-full sm:w-64 sm:flex-initial sm:flex-col-reverse">
-            <button className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
+            <button onClick={() => void signOut()} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
               Logout
             </button>
             <button className="w-full rounded border-2 bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
