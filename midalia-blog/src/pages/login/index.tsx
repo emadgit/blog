@@ -8,13 +8,20 @@ import PageHead from "../../components/PageHead";
 
 const Home: NextPage = () => {
   const router = useRouter();
-
   const { data: sessionData } = useSession();
 
   useEffect(()=> {
-    if(sessionData){
-      router.push("/blog-dashboard")
-    }
+    const redirectUser = async () => {
+      if (sessionData) {
+        await router.replace('/blog-dashboard');
+      } else {
+        await router.replace('/login');
+      }
+    };
+  
+    redirectUser().catch((error) => {
+      console.error(error);
+    });
   },[sessionData]);
 
   return (

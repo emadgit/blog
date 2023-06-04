@@ -12,9 +12,17 @@ const BlogDashboard: NextPage = () => {
   const { data: sessionData } = useSession();
 
   useEffect(()=> {
-    if(!sessionData){
-      router.push("/login")
-    }
+    const redirectUser = async () => {
+      if (sessionData) {
+        await router.replace('/blog-dashboard');
+      } else {
+        await router.replace('/login');
+      }
+    };
+  
+    redirectUser().catch((error) => {
+      console.error(error);
+    });
   },[sessionData]);
 
   return (
