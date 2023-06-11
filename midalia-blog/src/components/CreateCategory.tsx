@@ -37,7 +37,7 @@ export const CreateCategory: React.FC = () => {
   const handleCreateCategory = () => {
     if (!category){
         setFeedback(
-        "Please check if you add a title for your post or if you write something in the post before submit."
+        "Please enter a category name"
       );
       return;
     }
@@ -70,6 +70,7 @@ export const CreateCategory: React.FC = () => {
             <button
               onClick={handleCreateCategory}
               className="h-8 w-48 flex-initial items-center justify-center border-2 border-slate-600 bg-zinc-200 shadow-md hover:bg-transparent"
+              disabled={!category}
             >
               <div className="flex flex-1 justify-center">Create</div>
             </button>

@@ -1,7 +1,7 @@
 import { EditorState } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
-import React, { InputHTMLAttributes, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
 import ReactHtmlParser from "react-html-parser";
@@ -21,6 +21,13 @@ export const CreatePost: React.FC = () => {
   const [feedback, setFeedback] = useState<string>();
   const mutation = api.blog.createBlogPost.useMutation();
 
+  useEffect(()=> {
+    setTimeout(() => {
+        setFeedback("");
+        setError("");
+      }, 5000);
+  }, [feedback, error])
+
   const handleTextEditorChange = (e: EditorState) => {
     setPostEntry(e);
   };
@@ -34,10 +41,6 @@ export const CreatePost: React.FC = () => {
       setError(
         "Please check if you add a title for your post or if you write something in the post before submit."
       );
-
-      setTimeout(() => {
-        setError("");
-      }, 5000);
       return;
     }
     if (postEntry) {
@@ -46,6 +49,13 @@ export const CreatePost: React.FC = () => {
       const formattedPost = String(draftToHtml(
         convertToRaw(postEntry.getCurrentContent())
       ));
+
+      if(formattedPost === "<p></p>") {
+        setError(
+          "Please check if you add a title for your post or if you write something in the post before submit."
+        );
+        return;
+      }
 
       mutation.mutate({
         postTitle,
@@ -98,6 +108,7 @@ export const CreatePost: React.FC = () => {
             <button
               onClick={handleNewPost}
               className="h-8 w-24 flex-initial items-center justify-center border-2 border-slate-600 bg-zinc-200 shadow-md hover:bg-transparent"
+              disabled={!postTitle}
             >
               <div className="flex flex-1 justify-center">Post</div>
             </button>
