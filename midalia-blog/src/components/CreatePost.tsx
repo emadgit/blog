@@ -1,10 +1,11 @@
 import { EditorState } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import React, { InputHTMLAttributes, useState } from "react";
 import { convertToRaw } from "draft-js";
-import {draftToHtml} from 'draftjs-to-html';
-import ReactHtmlParser from 'react-html-parser'; 
+import * as draftToHtml from "draftjs-to-html";
+import ReactHtmlParser from "react-html-parser";
+import { api } from "../utils/api";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
@@ -15,15 +16,46 @@ const Editor = dynamic(
 
 export const CreatePost: React.FC = () => {
   const [postEntry, setPostEntry] = useState<EditorState>();
+  const [postTitle, setPostTitle] = useState<string>("");
+  const [error, setError] = useState<string>();
+  const [feedback, setFeedback] = useState<string>();
+  const mutation = api.blog.createBlogPost.useMutation();
 
   const handleTextEditorChange = (e: EditorState) => {
     setPostEntry(e);
   };
 
-  const handleNewPost = () => {
+  const handlePostTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPostTitle(e.target.value);
+  };
+
+  const handleNewPost = async () => {
+    if (!postEntry || !postTitle) {
+      setError(
+        "Please check if you add a title for your post or if you write something in the post before submit."
+      );
+
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return;
+    }
     if (postEntry) {
       // formattedPost going to hold a html draft which we store to db and later render it using ReactHtmlParser()
-      const formattedPost = draftToHtml(convertToRaw(postEntry.getCurrentContent()));
+      const formattedPost = draftToHtml(
+        convertToRaw(postEntry.getCurrentContent())
+      );
+
+      console.group(postTitle, formattedPost);
+      mutation.mutate({
+        postTitle,
+        post: formattedPost,
+        category: "Uncategorized", // Todo: create a dropdown to let user select a category
+      });
+      setFeedback("Baaam! A new post is just created.");
+      setTimeout(() => {
+        setFeedback("");
+      }, 5000);
     }
     return;
   };
@@ -38,6 +70,8 @@ export const CreatePost: React.FC = () => {
           <input
             className="border-1 w-full rounded border-neutral-900 p-2"
             type="text"
+            value={postTitle}
+            onChange={handlePostTitle}
             placeholder="Post title"
           />
           <Editor
@@ -70,6 +104,16 @@ export const CreatePost: React.FC = () => {
           </div>
         </div>
       </div>
+      {error && (
+        <div className="turncate m-8 flex h-fit flex-1 flex-col justify-center rounded bg-red-200 pb-4 text-center text-black sm:flex-initial">
+          <p className="pt-4">{error}</p>
+        </div>
+      )}
+           {feedback && (
+        <div className="turncate m-8 flex h-fit flex-1 flex-col justify-center rounded bg-green-200 pb-4 text-center text-black sm:flex-initial">
+          <p className="pt-4">{feedback}</p>
+        </div>
+      )}
     </>
   );
 };

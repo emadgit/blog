@@ -1,0 +1,1 @@
+// We can use for DB seeding if needed: https://www.prisma.io/docs/guides/migrate/seed-database
