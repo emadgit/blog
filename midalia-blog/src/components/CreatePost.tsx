@@ -29,7 +29,7 @@ export const CreatePost: React.FC = () => {
     setPostTitle(e.target.value);
   };
 
-  const handleNewPost = async () => {
+  const handleNewPost = () => {
     if (!postEntry || !postTitle) {
       setError(
         "Please check if you add a title for your post or if you write something in the post before submit."
@@ -42,11 +42,11 @@ export const CreatePost: React.FC = () => {
     }
     if (postEntry) {
       // formattedPost going to hold a html draft which we store to db and later render it using ReactHtmlParser()
-      const formattedPost = draftToHtml(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      const formattedPost = String(draftToHtml(
         convertToRaw(postEntry.getCurrentContent())
-      );
+      ));
 
-      console.group(postTitle, formattedPost);
       mutation.mutate({
         postTitle,
         post: formattedPost,
