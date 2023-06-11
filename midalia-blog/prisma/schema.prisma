@@ -53,9 +53,9 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
@@ -63,6 +63,7 @@ model User {
     bio           Bio?
     posts         Post[]
     comments      Comment[]
+    categories    Category[]
 }
 
 model VerificationToken {
@@ -127,10 +128,14 @@ model Comment {
 model Category {
     id           String         @id @default(cuid())
     name         String
+    authorId     String
+    author       User           @relation(fields: [authorId], references: [id])
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
     posts        Post[]
     PostCategory PostCategory[]
+
+    @@index([authorId])
 }
 
 model PostCategory {
