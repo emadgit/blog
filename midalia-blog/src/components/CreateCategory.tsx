@@ -52,8 +52,8 @@ export const CreateCategory: React.FC = () => {
 
   return (
     <>
-    <div className="flex flex-col sm:flex-row">
-    <div className="turncate h-fit m-8 flex flex-1 sm:w-full flex-col rounded bg-stone-100 pb-4 text-black sm:flex-initial">
+    <div className="flex flex-col sm:flex-row w-full">
+    <div className="turncate h-fit m-0 sm:m-8 flex flex-initial w-full sm:w-2/4 md:w-3/4 flex-col rounded bg-stone-100 pb-4 text-black sm:flex-initial">
         <div className="p-4 text-2xl">
           <h2>Create new category</h2>
         </div>
@@ -76,7 +76,7 @@ export const CreateCategory: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="turncate h-fit m-8 flex flex-1 sm:w-full flex-col rounded bg-stone-100 pb-4 text-black sm:flex-initial">
+      <div className="turncate h-fit m-0 sm:m-8 flex flex-initial w-full sm:w-2/4 md:w-1/4 flex-col rounded bg-stone-100 pb-4 text-black sm:flex-initial">
         <div className="p-4 text-2xl">
           <h2>Categories</h2>
         </div>
