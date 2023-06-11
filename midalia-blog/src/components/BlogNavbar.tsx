@@ -19,9 +19,9 @@ export const BlogNavbar: React.FC = () => {
         <Link href={"/blog-dashboard"} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700 text-center">
           Posts History
         </Link>
-        <button className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
+        <Link href={"/blog-dashboard/new-category"} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700 text-center">
           Categories
-        </button>
+        </Link>
         <button className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
           Comments
         </button>
