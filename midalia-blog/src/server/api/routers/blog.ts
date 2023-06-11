@@ -39,5 +39,15 @@ export const blogRouter = createTRPCRouter({
     });
 
     return { msg: "New Post is created.", status: "ok"}
+  }),
+  listBlogPosts: protectedProcedure.query(({ ctx }) => {
+    const { prisma, session } = ctx;
+    const blogPosts = prisma.post.findMany({
+        where: {
+            authorId: session.user.id
+        }
+    });
+
+    return blogPosts;
   })
 });
