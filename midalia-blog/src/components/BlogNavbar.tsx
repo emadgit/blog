@@ -22,9 +22,9 @@ export const BlogNavbar: React.FC = () => {
         <Link href={"/blog-dashboard/new-category"} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700 text-center">
           Categories
         </Link>
-        <button className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
+        <Link  href={"/blog-dashboard/comments"} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700 text-center">
           Comments
-        </button>
+        </Link>
         <div className="flex h-fit flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <div className="turncate flex h-fit flex-1 flex-col gap-2 bg-neutral-900 text-slate-200 sm:h-full sm:w-64 sm:flex-initial sm:flex-col-reverse">
             <button onClick={() => void signOut()} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
