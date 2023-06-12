@@ -5,16 +5,16 @@ import { useEffect } from "react";
 
 import BlogNavbar from "../../../components/BlogNavbar";
 import PageHead from "../../../components/PageHead";
-import CommentList from '../../../components/CommentList';
+import ProfileEditableForm from '../../../components/ProfileEditableForm';
 
-const Comments: NextPage = () => {
+const Profile: NextPage = () => {
   const router = useRouter();
   const { data: sessionData } = useSession();
 
   useEffect(()=> {
     const redirectUser = async () => {
       if (sessionData) {
-        await router.replace('/blog-dashboard/comments');
+        await router.replace('/blog-dashboard/profile');
       } else {
         await router.replace('/login');
       }
@@ -32,7 +32,7 @@ const Comments: NextPage = () => {
         <div className="flex h-full flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <BlogNavbar />
           <div className="flex flex-1 flex-col bg-white h-fit sm:h-full overflow-auto w-full">
-           <CommentList />
+           <ProfileEditableForm />
           </div>
         </div>
       </main>
@@ -40,4 +40,4 @@ const Comments: NextPage = () => {
   );
 };
 
-export default Comments;
+export default Profile;

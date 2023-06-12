@@ -30,14 +30,14 @@ export const BlogNavbar: React.FC = () => {
             <button onClick={() => void signOut()} className="w-full rounded bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
               Logout
             </button>
-            <button className="w-full rounded border-2 bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
+            <Link href={"/blog-dashboard/profile"} className="w-full rounded border-2 bg-transparent py-2 font-bold text-white hover:bg-neutral-700">
               <span className="flex flex-row justify-center gap-2">
                 <div className="flex flex-row">
                   <FaUserEdit className="text-2xl" />
                 </div>{" "}
                 <div className="flex flex-row">Edit Profile</div>
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
