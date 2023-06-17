@@ -25,6 +25,7 @@
     "@types/react-draft-wysiwyg": "1.13.4",
     "next": "^13.4.2",
     "next-auth": "^4.22.1",
+    "nanoid": "4.0.2",
     "react": "18.2.0",
     "react-html-parser": "2.0.2",
     "immutable": "4.3.0",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@types/eslint": "^8.37.0",
     "@types/node": "^18.16.0",
+    "@types/nanoid": "3.0.0",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",

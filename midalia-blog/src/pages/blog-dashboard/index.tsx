@@ -6,14 +6,17 @@ import { useEffect } from "react";
 import PageHead from "../../components/PageHead";
 import LatestPosts from "../../components/LatestPosts";
 import BlogNavbar from "../../components/BlogNavbar";
+import { api } from "../../utils/api";
 
 const BlogDashboard: NextPage = () => {
   const router = useRouter();
   const { data: sessionData } = useSession();
+  const mutation = api.blog.updateBlogIdentifier.useMutation();
 
   useEffect(()=> {
     const redirectUser = async () => {
       if (sessionData) {
+        mutation.mutate({}); // to hanlde blog identifer
         await router.replace('/blog-dashboard');
       } else {
         await router.replace('/login');
