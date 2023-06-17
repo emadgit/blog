@@ -1,6 +1,10 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
+
 import { z } from "zod";
-import { customAlphabet } from "nanoid";
 export const blogRouter = createTRPCRouter({
   createBlogPost: protectedProcedure
     .input(
@@ -66,75 +70,89 @@ export const blogRouter = createTRPCRouter({
 
     return blogPostCategories;
   }),
+  listBlogPostsPublic: publicProcedure
+    .input(z.object({ hostName: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { prisma } = ctx;
+      const userByBlogIdentifer = await prisma.user.findFirst({
+        where: {
+          blogIdentifer: input.hostName,
+        },
+      });
+      if (!userByBlogIdentifer) {
+        return [];
+      }
+      const blogPosts = prisma.post.findMany({
+        where: {
+          authorId: userByBlogIdentifer.id,
+        },
+      });
+
+      return blogPosts;
+    }),
   createBlogPostCategory: protectedProcedure
     .input(z.object({ categoryName: z.string() }))
     .mutation(async ({ ctx, input }) => {
-        const { prisma, session } = ctx;
+      const { prisma, session } = ctx;
 
-        const newCategory = prisma.category.create({
-          data: {
-            name: input.categoryName,
-            authorId: session.user.id,
+      const newCategory = prisma.category.create({
+        data: {
+          name: input.categoryName,
+          authorId: session.user.id,
+        },
+      });
+
+      return newCategory;
+    }),
+  updateBlogIdentifier: protectedProcedure
+    .input(
+      z.object({ blogIdentifer: z.optional(z.string()), urlPath: z.string() })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { prisma, session } = ctx;
+      const user = await prisma.user.findFirst({
+        where: {
+          id: session.user.id,
+        },
+      });
+      if (!user) {
+        return;
+      }
+      if (!input.blogIdentifer) {
+        if (!user?.blogIdentifer) {
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              blogIdentifer: input.urlPath,
+            },
+          });
+          return "Default Blog Identifier is set";
+        } else {
+          return "Alles ist gut, noting to do here ;)";
+        }
+      } else {
+        const isBlogIdentiferUsed = await prisma.user.findFirst({
+          where: {
+            blogIdentifer: input.blogIdentifer,
           },
         });
 
-        return newCategory;
+        if (isBlogIdentiferUsed) {
+          return "Can't use this blog identifer";
+        }
+
+        await prisma.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            blogIdentifer: input.blogIdentifer,
+          },
+        });
+
+        return "Blog identifer is updated";
+      }
     }),
-    updateBlogIdentifier: protectedProcedure.input(z.object( { blogIdentifer: z.optional(z.string())})).mutation(async({ctx, input}) => {
-        const { prisma, session } = ctx;
-        const user = await prisma.user.findFirst({
-            where: {
-              id: session.user.id
-            }
-          });
-          if(!user) {
-            return;
-          }
-
-          if(!input.blogIdentifer) {
-            if(!user?.blogIdentifer) {
-                const nanoid = customAlphabet('1234567890abcdefghizy', 6);
-                const blogIdentiferPostFix = nanoid();
-                const emailUserName = user.email?.substring(0, user.email?.indexOf("@"));
-                if(blogIdentiferPostFix && typeof blogIdentiferPostFix === "string") {
-                  await prisma.user.update({
-                    where: {
-                      id: user.id
-                    },
-                    data: {
-                      blogIdentifer: emailUserName ? emailUserName + blogIdentiferPostFix : blogIdentiferPostFix
-                    }
-                  })
-                  return "Default Blog Identifier is set"
-                }
-                return "Something went wrong while setting the default blog identifer"
-              } else {
-                return "Alles ist gut, noting to do here ;)"
-              }
-          } else {
-
-            const isBlogIdentiferUsed = await prisma.user.findFirst({
-                where: {
-                  blogIdentifer: input.blogIdentifer
-                }
-              });
-
-              if(isBlogIdentiferUsed) {
-                return "Can't use this blog identifer"
-              }
-
-              await prisma.user.update({
-                where: {
-                  id: user.id
-                },
-                data: {
-                  blogIdentifer: input.blogIdentifer
-                }
-              })
-
-              return "Blog identifer is updated"
-          }
-          
-        
-    })
 });

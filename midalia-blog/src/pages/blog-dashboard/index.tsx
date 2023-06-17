@@ -16,7 +16,11 @@ const BlogDashboard: NextPage = () => {
   useEffect(()=> {
     const redirectUser = async () => {
       if (sessionData) {
-        mutation.mutate({}); // to hanlde blog identifer
+        if (typeof window !== 'undefined') {
+          const hostname = window.location.hostname;
+          mutation.mutate({urlPath: hostname}); // to hanlde blog identifer
+       }
+       
         await router.replace('/blog-dashboard');
       } else {
         await router.replace('/login');
