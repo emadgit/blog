@@ -9,20 +9,23 @@ export const LatestPosts: React.FC = () => {
   const {
     data,
     refetch,
-    status,
     isLoading: isPostsLoading,
   } = api.blog.listBlogPosts.useQuery();
 
   const { mutate, isLoading: isPostDeleteLoading } =
     api.blog.deleteBlogPost.useMutation();
   const fetchPosts = async () => {
-    if (status === "success") {
       const { data: refetchedData } = await refetch();
       if (refetchedData) {
         setPosts(refetchedData);
       }
-    }
   };
+
+  useEffect(()=>{
+    if(data){
+      setPosts(data)
+    }
+  },[data])
 
   useEffect(() => {
     fetchPosts()

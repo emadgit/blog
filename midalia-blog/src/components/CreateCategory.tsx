@@ -4,14 +4,17 @@ import dynamic from "next/dynamic";
 import React, { InputHTMLAttributes, useState } from "react";
 import { api } from "../utils/api";
 import { useEffect } from "react";
+import { FaTrash } from "react-icons/fa";
+import { Category } from "@prisma/client";
 
 
 export const CreateCategory: React.FC = () => {
   const [category, setCategory] = useState<string>('');
-  const { data } = api.blog.listBlogPostCategories.useQuery();
+  const [ categories, setCategories] = useState<Category[]>([]);
+  const { data, refetch, isLoading: isCategoriesLoading } = api.blog.listBlogPostCategories.useQuery();
   const { mutate, error, isLoading } = api.blog.createBlogPostCategory.useMutation();
   const [feedback, setFeedback] = useState<string>("");
-
+  const { mutate: deleteCategoryMutate, isLoading: isCategoryDeleteLoading } = api.blog.deleteBlogPostCategory.useMutation();
   useEffect(()=> {
     if (error) {
         if(error?.message.includes("Unique constraint failed")) {
@@ -50,6 +53,30 @@ export const CreateCategory: React.FC = () => {
     }
   };
 
+  useEffect(()=> {
+    if(data){
+      setCategories(data);
+    }
+  }, [data])
+
+  const fetchCategories = async () => {
+      const { data: refetchedData } = await refetch();
+      if (refetchedData) {
+        setCategories(refetchedData);
+      }
+  };
+  
+  useEffect(() => {
+    fetchCategories()
+      .then()
+      .catch((e) => console.error(e));
+  }, [isCategoryDeleteLoading, isCategoriesLoading]);
+
+  const handleDeleteCategory = (id:string)=> {
+    deleteCategoryMutate({categoryid: id});
+    fetchCategories().then().catch(e => console.error(e))
+  }
+
   return (
     <>
     <div className="flex flex-col sm:flex-row w-full">
@@ -82,11 +109,14 @@ export const CreateCategory: React.FC = () => {
           <h2>Categories</h2>
         </div>
         <div className="ml-4 mr-4 flex flex-row justify-center border-b-2 border-black bg-white text-center">
-          <div className="flex-1">Category name</div>
+          <div className="flex-1 flex justify-center sm:justify-start">Category name</div>
+          <div className="flex-1 flex justify-center sm:justify-end">Delete</div>
+
         </div>
-        {data?.map((category) => (
+        {categories.map((category) => (
           <div key={category.id} className="ml-4 mr-4 flex flex-row justify-center bg-white p-2 text-center">
-            <div className="flex-1">{category.name}</div>
+            <div className="flex-1 flex justify-center sm:justify-start">{category.name}</div>
+            <div className="flex flex-1 justify-center sm:justify-end pl-2 cursor-pointer"><FaTrash onClick={()=> handleDeleteCategory(category.id)} /></div>
           </div>
         ))}
       </div>
