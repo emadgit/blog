@@ -1,13 +1,22 @@
 import { type NextPage } from "next";
 import Link from "next/link";
+import { Chakra_Petch } from 'next/font/google'
 
 import PageHead from "../../components/PageHead";
 import { api } from "../../utils/api";
+import { format } from 'date-fns'
+import ReactHtmlParser from "react-html-parser";
 
 let hostName = "";
 if (typeof window !== "undefined") {
   hostName = window.location.hostname;
 }
+
+const ChakraPatch = Chakra_Petch({
+  subsets: ['latin'],
+  variable: '--font-chakra-patch',
+  weight: "600"
+})
 
 const Posts: NextPage = () => {
   const blogPosts = api.blog.listBlogPostsPublic.useQuery({ hostName });
@@ -38,7 +47,12 @@ const Posts: NextPage = () => {
 
                 <>
                   {blogPosts?.data?.map((post) => (
-                    <div>{post.title}</div>
+                    <div className="flex flex-col w-full bg-slate-50 mt-4 text-black p-8 shadow-md shadow-black">
+                      <div className={`text-3xl ${ChakraPatch.variable} font-sans font-bold`}>{post.title}</div>
+                      <div className={`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600`}>{format(post.updatedAt, "PP")}</div>
+                      <div className="`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600">{ReactHtmlParser(post.content)}</div>
+                    </div>
+                    
                   ))}
                 </>
                 {!blogPosts ||

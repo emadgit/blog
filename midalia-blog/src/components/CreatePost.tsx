@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
-import ReactHtmlParser from "react-html-parser";
 import { api } from "../utils/api";
 
 const Editor = dynamic(
