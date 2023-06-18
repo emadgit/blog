@@ -47,7 +47,7 @@ const Posts: NextPage = () => {
 
                 <>
                   {blogPosts?.data?.map((post) => (
-                    <div className="flex flex-col w-full bg-slate-50 mt-4 text-black p-8 shadow-md shadow-black">
+                    <div key={post.id} className="flex flex-col w-full bg-slate-50 mt-4 text-black p-8 shadow-md shadow-black">
                       <div className={`text-3xl ${ChakraPatch.variable} font-sans font-bold`}>{post.title}</div>
                       <div className={`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600`}>{format(post.updatedAt, "PP")}</div>
                       <div className="`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600">{ReactHtmlParser(post.content)}</div>
