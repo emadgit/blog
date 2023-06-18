@@ -29,6 +29,7 @@
     "nanoid": "4.0.2",
     "react": "18.2.0",
     "react-html-parser": "2.0.2",
+    "swr": "2.1.5",
     "immutable": "4.3.0",
     "react-dom": "18.2.0",
     "react-icons": "4.8.0",

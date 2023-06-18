@@ -49,6 +49,28 @@ export const blogRouter = createTRPCRouter({
 
       return { msg: "New Post is created.", status: "ok" };
     }),
+  deleteBlogPost: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { prisma, session } = ctx;
+
+      const post = await prisma.post.findFirst({
+        where: {
+          authorId: session.user.id,
+          id: input.postId,
+        },
+      });
+
+      if (post) {
+        await prisma.post.delete({
+          where: {
+            id: input.postId,
+          },
+        });
+        return "Blog post deleted.";
+      }
+      return "This post can not be deleted";
+    }),
   listBlogPosts: protectedProcedure.query(({ ctx }) => {
     const { prisma, session } = ctx;
     const blogPosts = prisma.post.findMany({
@@ -59,10 +81,10 @@ export const blogRouter = createTRPCRouter({
 
     return blogPosts;
   }),
-  listBlogPostCategories: protectedProcedure.query(({ ctx }) => {
+  listBlogPostCategories: protectedProcedure.query(async ({ ctx }) => {
     const { prisma, session } = ctx;
 
-    const blogPostCategories = prisma.category.findMany({
+    const blogPostCategories = await prisma.category.findMany({
       where: {
         authorId: session.user.id,
       },

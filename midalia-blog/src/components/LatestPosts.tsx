@@ -1,8 +1,41 @@
 import { api } from "../utils/api";
-import { useEffect } from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { Post } from "@prisma/client";
 
 export const LatestPosts: React.FC = () => {
-  const blogPosts = api.blog.listBlogPosts.useQuery();
+  const [posts, setPosts] = useState<Post[]>([]);
+  const {
+    data,
+    refetch,
+    status,
+    isLoading: isPostsLoading,
+  } = api.blog.listBlogPosts.useQuery();
+
+  const { mutate, isLoading: isPostDeleteLoading } =
+    api.blog.deleteBlogPost.useMutation();
+  const fetchPosts = async () => {
+    if (status === "success") {
+      const { data: refetchedData } = await refetch();
+      if (refetchedData) {
+        setPosts(refetchedData);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts()
+      .then()
+      .catch((e) => console.error(e));
+  }, [isPostDeleteLoading, isPostsLoading]);
+
+  const handleDeletePost = (id: string) => {
+    mutate({ postId: id });
+    fetchPosts()
+      .then()
+      .catch((e) => console.error(e));
+  };
 
   return (
     <>
@@ -14,12 +47,23 @@ export const LatestPosts: React.FC = () => {
           <div className="flex-1">Title</div>
           <div className="flex-1">Last update</div>
           <div className="flex-1">Comments</div>
+          <div className="flex-1">Edit</div>
+          <div className="flex-1">Delete</div>
         </div>
-        {blogPosts?.data?.map((post) => (
-          <div key={post.id} className="ml-4 mr-4 flex flex-row justify-center bg-white p-2 text-center">
+        {posts?.map((post) => (
+          <div
+            key={post.id}
+            className="ml-4 mr-4 flex flex-row justify-center bg-white p-2 text-center"
+          >
             <div className="flex-1">{post.title}</div>
-            <div className="flex-1">{post.updatedAt.toDateString()}</div>
+            <div className="flex-1">{format(post.updatedAt, "PP")}</div>
             <div className="flex-1">0</div>
+            <div className="flex flex-1 justify-center">
+              <FaEdit />
+            </div>
+            <div className="flex flex-1 justify-center">
+              <FaTrash onClick={() => handleDeletePost(post.id)} />
+            </div>
           </div>
         ))}
       </div>
