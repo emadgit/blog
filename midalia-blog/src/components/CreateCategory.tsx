@@ -50,6 +50,7 @@ export const CreateCategory: React.FC = () => {
     if(!isLoading && !error) {
         setFeedback("Baaam! Category is created 🚀");
         setCategory("");
+        fetchCategories().then().catch(e => console.error(e))
     }
   };
 

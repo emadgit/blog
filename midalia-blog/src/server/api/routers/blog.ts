@@ -4,6 +4,12 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
+import { Post, Category } from "@prisma/client";
+
+interface BlogPost extends Post {
+  category: string;
+}
+
 import { z } from "zod";
 export const blogRouter = createTRPCRouter({
   createBlogPost: protectedProcedure
@@ -33,17 +39,20 @@ export const blogRouter = createTRPCRouter({
         });
       }
 
-      await prisma.post.create({
+      const post = await prisma.post.create({
         data: {
           title: input.postTitle,
           content: input.post,
-          categories: {
-            connect: {
-              id: category.id,
-            },
-          },
+          postCategories: {},
           published: true,
           authorId: session.user.id,
+        },
+      });
+
+      await prisma.postCategory.create({
+        data: {
+          categoryId: category.id,
+          postId: post.id,
         },
       });
 
@@ -62,6 +71,20 @@ export const blogRouter = createTRPCRouter({
       });
 
       if (post) {
+        const postCategory = await prisma.postCategory.findFirst({
+          where: {
+            postId: post.id,
+          },
+        });
+
+        if (postCategory) {
+          await prisma.postCategory.delete({
+            where: {
+              id: postCategory.id,
+            },
+          });
+        }
+
         await prisma.post.delete({
           where: {
             id: input.postId,
@@ -71,15 +94,31 @@ export const blogRouter = createTRPCRouter({
       }
       return "This post can not be deleted";
     }),
-  listBlogPosts: protectedProcedure.query(({ ctx }) => {
+  listBlogPosts: protectedProcedure.query(async ({ ctx }) => {
     const { prisma, session } = ctx;
-    const blogPosts = prisma.post.findMany({
+    const blogPosts = await prisma.post.findMany({
       where: {
         authorId: session.user.id,
       },
     });
 
-    return blogPosts;
+    const blogPostsResult: BlogPost[] = [];
+
+    for await (const blogPost of blogPosts) {
+      const postCategory = await prisma.postCategory.findFirst({
+        where: { postId: blogPost.id },
+      });
+
+      const category = await prisma.category.findFirst({
+        where: { id: postCategory?.categoryId },
+      });
+
+      if (category) {
+        blogPostsResult.push({ ...blogPost, category: category.name });
+      }
+    }
+
+    return blogPostsResult;
   }),
   listBlogPostCategories: protectedProcedure.query(async ({ ctx }) => {
     const { prisma, session } = ctx;
@@ -104,13 +143,29 @@ export const blogRouter = createTRPCRouter({
       if (!userByBlogIdentifer) {
         return [];
       }
-      const blogPosts = prisma.post.findMany({
+      const blogPosts = await prisma.post.findMany({
         where: {
           authorId: userByBlogIdentifer.id,
         },
       });
 
-      return blogPosts;
+      const blogPostsResult: BlogPost[] = [];
+
+      for await (const blogPost of blogPosts) {
+        const postCategory = await prisma.postCategory.findFirst({
+          where: { postId: blogPost.id },
+        });
+
+        const category = await prisma.category.findFirst({
+          where: { id: postCategory?.categoryId },
+        });
+
+        if (category) {
+          blogPostsResult.push({ ...blogPost, category: category.name });
+        }
+      }
+
+      return blogPostsResult;
     }),
   createBlogPostCategory: protectedProcedure
     .input(z.object({ categoryName: z.string() }))

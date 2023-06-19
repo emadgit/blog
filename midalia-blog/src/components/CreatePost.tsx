@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
 import { api } from "../utils/api";
+import { Dropdown } from "@nextui-org/react";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
@@ -19,13 +20,15 @@ export const CreatePost: React.FC = () => {
   const [error, setError] = useState<string>();
   const [feedback, setFeedback] = useState<string>();
   const mutation = api.blog.createBlogPost.useMutation();
+  const { data: categories } = api.blog.listBlogPostCategories.useQuery();
+  const [postCategory, setPostCategory] = useState<string>("");
 
-  useEffect(()=> {
+  useEffect(() => {
     setTimeout(() => {
-        setFeedback("");
-        setError("");
-      }, 5000);
-  }, [feedback, error])
+      setFeedback("");
+      setError("");
+    }, 5000);
+  }, [feedback, error]);
 
   const handleTextEditorChange = (e: EditorState) => {
     setPostEntry(e);
@@ -44,12 +47,12 @@ export const CreatePost: React.FC = () => {
     }
     if (postEntry) {
       // formattedPost going to hold a html draft which we store to db and later render it using ReactHtmlParser()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const formattedPost = String(draftToHtml(
-        convertToRaw(postEntry.getCurrentContent())
-      ));
+      const formattedPost = String(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        draftToHtml(convertToRaw(postEntry.getCurrentContent()))
+      );
 
-      if(formattedPost === "<p></p>") {
+      if (formattedPost === "<p></p>") {
         setError(
           "Please check if you add a title for your post or if you write something in the post before submit."
         );
@@ -59,7 +62,7 @@ export const CreatePost: React.FC = () => {
       mutation.mutate({
         postTitle,
         post: formattedPost,
-        category: "Uncategorized", // Todo: create a dropdown to let user select a category
+        category: postCategory, // Todo: Let selecting multiple categories
       });
       setFeedback("Baaam! A new post is just created.");
       setTimeout(() => {
@@ -68,6 +71,10 @@ export const CreatePost: React.FC = () => {
     }
     return;
   };
+
+  const handleCategory = (e: React.FormEvent<HTMLSelectElement>) => {
+    setPostCategory(e.currentTarget.value);
+  }
 
   return (
     <>
@@ -97,6 +104,12 @@ export const CreatePost: React.FC = () => {
               history: { inDropdown: true },
             }}
           />
+          <div className="flex flex-col w-2/4">
+          <select className="p-2" onChange={handleCategory}>
+            <option>Select post category</option>
+            {categories && categories.map((category)=> <option key={category.id}>{category.name}</option>)}
+          </select>
+          </div>
           <div className="flex flex-row-reverse ">
             <input type="checkbox" className="flex-initial" />{" "}
             <div className="flex flex-initial justify-center pr-2 text-sm font-medium">
@@ -119,7 +132,7 @@ export const CreatePost: React.FC = () => {
           <p className="pt-4">{error}</p>
         </div>
       )}
-           {feedback && (
+      {feedback && (
         <div className="turncate m-8 flex h-fit flex-1 flex-col justify-center rounded bg-green-200 pb-4 text-center text-black sm:flex-initial">
           <p className="pt-4">{feedback}</p>
         </div>
