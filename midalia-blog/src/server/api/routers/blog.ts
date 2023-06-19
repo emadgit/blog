@@ -9,7 +9,7 @@ import {
   createBlogPostCategory,
   deleteBlogPostCategory,
   updateBlogIdentifier,
-} from "./modules";
+} from "./procedures";
 
 export const blogRouter = createTRPCRouter({
   createBlogPost,
