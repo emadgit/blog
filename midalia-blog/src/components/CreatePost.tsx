@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
 import { api } from "../utils/api";
-import { Dropdown } from "@nextui-org/react";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
