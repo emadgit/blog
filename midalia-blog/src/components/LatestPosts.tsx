@@ -3,6 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Post } from "@prisma/client";
+import Link from "next/link";
 
 export const LatestPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -61,9 +62,9 @@ export const LatestPosts: React.FC = () => {
             <div className="flex-1">{post.title}</div>
             <div className="flex-1">{format(post.updatedAt, "PP")}</div>
             <div className="flex-1">0</div>
-            <div className="flex flex-1 justify-center">
+            <Link href={"/blog-dashboard/edit-post"} className="flex flex-1 justify-center">
               <FaEdit />
-            </div>
+            </Link>
             <div className="flex flex-1 justify-center">
               <FaTrash onClick={() => handleDeletePost(post.id)} />
             </div>

@@ -1,32 +1,29 @@
 import { protectedProcedure } from "~/server/api/trpc";
-import type { AnyProcedure } from "@trpc/server";
 import { BlogPost } from "../../../../utils/types";
 
-export const listBlogPosts: AnyProcedure = protectedProcedure.query(
-  async ({ ctx }) => {
-    const { prisma, session } = ctx;
-    const blogPosts = await prisma.post.findMany({
-      where: {
-        authorId: session.user.id,
-      },
+export const listBlogPosts = protectedProcedure.query(async ({ ctx }) => {
+  const { prisma, session } = ctx;
+  const blogPosts = await prisma.post.findMany({
+    where: {
+      authorId: session.user.id,
+    },
+  });
+
+  const blogPostsResult: BlogPost[] = [];
+
+  for await (const blogPost of blogPosts) {
+    const postCategory = await prisma.postCategory.findFirst({
+      where: { postId: blogPost.id },
     });
 
-    const blogPostsResult: BlogPost[] = [];
+    const category = await prisma.category.findFirst({
+      where: { id: postCategory?.categoryId },
+    });
 
-    for await (const blogPost of blogPosts) {
-      const postCategory = await prisma.postCategory.findFirst({
-        where: { postId: blogPost.id },
-      });
-
-      const category = await prisma.category.findFirst({
-        where: { id: postCategory?.categoryId },
-      });
-
-      if (category) {
-        blogPostsResult.push({ ...blogPost, category: category.name });
-      }
+    if (category) {
+      blogPostsResult.push({ ...blogPost, category: category.name });
     }
-
-    return blogPostsResult;
   }
-);
+
+  return blogPostsResult;
+});

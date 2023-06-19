@@ -1,9 +1,8 @@
 import { publicProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import type { AnyProcedure } from "@trpc/server";
 import { BlogPost } from "../../../../utils/types";
 
-export const listBlogPostsPublic: AnyProcedure = publicProcedure
+export const listBlogPostsPublic = publicProcedure
   .input(z.object({ hostName: z.string() }))
   .query(async ({ ctx, input }) => {
     const { prisma } = ctx;

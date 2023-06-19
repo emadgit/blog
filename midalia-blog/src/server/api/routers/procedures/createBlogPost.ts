@@ -1,8 +1,7 @@
 import { protectedProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import type { AnyProcedure } from "@trpc/server";
 
-export const createBlogPost: AnyProcedure = protectedProcedure
+export const createBlogPost = protectedProcedure
   .input(
     z.object({
       postTitle: z.string(),

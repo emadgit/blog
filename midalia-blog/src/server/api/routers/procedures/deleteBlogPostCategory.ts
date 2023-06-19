@@ -1,8 +1,7 @@
 import { protectedProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import type { AnyProcedure } from "@trpc/server";
 
-export const deleteBlogPostCategory: AnyProcedure = protectedProcedure
+export const deleteBlogPostCategory = protectedProcedure
   .input(z.object({ categoryid: z.string() }))
   .mutation(async ({ ctx, input }) => {
     const { prisma, session } = ctx;

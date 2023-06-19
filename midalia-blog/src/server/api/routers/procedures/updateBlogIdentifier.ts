@@ -1,8 +1,7 @@
 import { protectedProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import type { AnyProcedure } from "@trpc/server";
 
-export const updateBlogIdentifier: AnyProcedure = protectedProcedure
+export const updateBlogIdentifier = protectedProcedure
   .input(
     z.object({ blogIdentifer: z.optional(z.string()), urlPath: z.string() })
   )
