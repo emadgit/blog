@@ -51,7 +51,7 @@ const Posts: NextPage = () => {
                       <div className={`text-3xl ${ChakraPatch.variable} font-sans font-bold`}>{post.title}</div>
                       <div className={`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600`}>{format(post.updatedAt, "PP")}</div>
                       <div className="`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600 pt-2 pb-2">{ReactHtmlParser(post.content)}</div>
-                      <div className="`flex flex-1 text-sm ${ChakraPatch.variable} font-sans font-bold text-green-500 pt-2 pb-2 bg-blue-700 w-fit p-2 rounded-xl">{post.category}</div>
+                      <div className="`flex flex-1 text-sm ${ChakraPatch.variable} font-sans font-bold pt-2 pb-2 bg-sky-100 w-fit p-2 rounded-xl" style={{color: "#37afc0"}}>{post.category}</div>
 
                     </div>
                     
