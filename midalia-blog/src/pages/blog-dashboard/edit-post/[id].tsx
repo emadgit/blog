@@ -1,19 +1,28 @@
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from 'next/navigation'
 
 import BlogNavbar from "../../../components/BlogNavbar";
 import PageHead from "../../../components/PageHead";
+import EditPostComponent from "../../../components/EditPost";
 
 const EditPost: NextPage = () => {
   const router = useRouter();
   const { data: sessionData } = useSession();
+  const [postId, setPostId] = useState<string>("");
+  const searchParams = useSearchParams()
 
   useEffect(()=> {
     const redirectUser = async () => {
       if (sessionData) {
-        await router.replace('/blog-dashboard/edit-post');
+        const postId = searchParams.get("id");
+        if(postId) { 
+          console.log("postId: ", postId);
+          setPostId(postId);
+        }
+        await router.replace(`/blog-dashboard/edit-post/${postId}`);
       } else {
         await router.replace('/login');
       }
@@ -31,7 +40,7 @@ const EditPost: NextPage = () => {
         <div className="flex h-full flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <BlogNavbar />
           <div className="flex flex-1 flex-col bg-white h-fit sm:h-full overflow-auto w-full">
-           Edit Post
+            <EditPostComponent postId={postId} />
           </div>
         </div>
       </main>

@@ -40,6 +40,9 @@ dependencies:
   draft-js:
     specifier: 0.11.7
     version: 0.11.7(react-dom@18.2.0)(react@18.2.0)
+  draft-js-import-html:
+    specifier: 1.4.1
+    version: 1.4.1(draft-js@0.11.7)(immutable@4.3.0)
   draftjs-to-html:
     specifier: 0.9.1
     version: 0.9.1
@@ -2065,6 +2068,39 @@ packages:
     dependencies:
       dom-serializer: 0.2.2
       domelementtype: 1.3.1
+    dev: false
+
+  /draft-js-import-element@1.4.0(draft-js@0.11.7)(immutable@4.3.0):
+    resolution: {integrity: sha512-WmYT5PrCm47lGL5FkH6sRO3TTAcn7qNHsD3igiPqLG/RXrqyKrqN4+wBgbcT2lhna/yfWTRtgzAbQsSJoS1Meg==}
+    peerDependencies:
+      draft-js: '>=0.10.0'
+      immutable: 3.x.x
+    dependencies:
+      draft-js: 0.11.7(react-dom@18.2.0)(react@18.2.0)
+      draft-js-utils: 1.4.1(draft-js@0.11.7)(immutable@4.3.0)
+      immutable: 4.3.0
+      synthetic-dom: 1.4.0
+    dev: false
+
+  /draft-js-import-html@1.4.1(draft-js@0.11.7)(immutable@4.3.0):
+    resolution: {integrity: sha512-KOZmtgxZriCDgg5Smr3Y09TjubvXe7rHPy/2fuLSsL+aSzwUDwH/aHDA/k47U+WfpmL4qgyg4oZhqx9TYJV0tg==}
+    peerDependencies:
+      draft-js: '>=0.10.0'
+      immutable: 3.x.x
+    dependencies:
+      draft-js: 0.11.7(react-dom@18.2.0)(react@18.2.0)
+      draft-js-import-element: 1.4.0(draft-js@0.11.7)(immutable@4.3.0)
+      immutable: 4.3.0
+    dev: false
+
+  /draft-js-utils@1.4.1(draft-js@0.11.7)(immutable@4.3.0):
+    resolution: {integrity: sha512-xE81Y+z/muC5D5z9qWmKfxEW1XyXfsBzSbSBk2JRsoD0yzMGGHQm/0MtuqHl/EUDkaBJJLjJ2EACycoDMY/OOg==}
+    peerDependencies:
+      draft-js: '>=0.10.0'
+      immutable: 3.x.x
+    dependencies:
+      draft-js: 0.11.7(react-dom@18.2.0)(react@18.2.0)
+      immutable: 4.3.0
     dev: false
 
   /draft-js@0.11.7(react-dom@18.2.0)(react@18.2.0):
@@ -4156,6 +4192,10 @@ packages:
       '@pkgr/utils': 2.4.1
       tslib: 2.5.2
     dev: true
+
+  /synthetic-dom@1.4.0:
+    resolution: {integrity: sha512-mHv51ZsmZ+ShT/4s5kg+MGUIhY7Ltq4v03xpN1c8T1Krb5pScsh/lzEjyhrVD0soVDbThbd2e+4dD9vnDG4rhg==}
+    dev: false
 
   /tailwindcss@3.3.0(postcss@8.4.21)(ts-node@10.9.1):
     resolution: {integrity: sha512-hOXlFx+YcklJ8kXiCAfk/FMyr4Pm9ck477G0m/us2344Vuj355IpoEDB5UmGAsSpTBmr+4ZhjzW04JuFXkb/fw==}

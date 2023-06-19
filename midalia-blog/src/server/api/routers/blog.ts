@@ -9,6 +9,8 @@ import {
   createBlogPostCategory,
   deleteBlogPostCategory,
   updateBlogIdentifier,
+  editBlogPost,
+  findBlogPost,
 } from "./procedures";
 
 export const blogRouter = createTRPCRouter({
@@ -20,4 +22,6 @@ export const blogRouter = createTRPCRouter({
   createBlogPostCategory,
   deleteBlogPostCategory,
   updateBlogIdentifier,
+  editBlogPost,
+  findBlogPost,
 });

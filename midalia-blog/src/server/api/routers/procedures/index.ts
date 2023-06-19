@@ -6,6 +6,8 @@ import { listBlogPostsPublic } from "./listBlogPostsPublic";
 import { createBlogPostCategory } from "./createBlogPostCategory";
 import { deleteBlogPostCategory } from "./deleteBlogPostCategory";
 import { updateBlogIdentifier } from "./updateBlogIdentifier";
+import { editBlogPost } from "./editBlogPost";
+import { findBlogPost } from "./findBlogPost";
 
 export {
   deleteBlogPost,
@@ -16,4 +18,6 @@ export {
   createBlogPostCategory,
   deleteBlogPostCategory,
   updateBlogIdentifier,
+  editBlogPost,
+  findBlogPost,
 };

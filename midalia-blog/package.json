@@ -39,6 +39,7 @@
     "draft-js": "0.11.7",
     "draftjs-to-markdown": "0.6.0",
     "draftjs-to-html": "0.9.1",
+    "draft-js-import-html": "1.4.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {

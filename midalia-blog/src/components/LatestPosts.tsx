@@ -62,7 +62,7 @@ export const LatestPosts: React.FC = () => {
             <div className="flex-1">{post.title}</div>
             <div className="flex-1">{format(post.updatedAt, "PP")}</div>
             <div className="flex-1">0</div>
-            <Link href={"/blog-dashboard/edit-post"} className="flex flex-1 justify-center">
+            <Link href={`/blog-dashboard/edit-post/${post.id}`} className="flex flex-1 justify-center">
               <FaEdit />
             </Link>
             <div className="flex flex-1 justify-center">
