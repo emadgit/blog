@@ -1,5 +1,20 @@
+import { useState } from 'react';
+
 
 export const ProfileEditableForm: React.FC = () => {
+
+  const [skillsInput, setSKillsInput] = useState<string>("");
+  const [skills, setSkills] = useState<string[]>([]);
+  const handleAddSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target)
+    const input = e.target.innerText;
+    setSKillsInput(input);
+  }
+
+  const handleSkillSepration = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.innerText ="";
+    setSkills(skillsInput.split(","))
+  }
 
     return (
       <>
@@ -9,7 +24,11 @@ export const ProfileEditableForm: React.FC = () => {
           </div>
           <div className="flex flex-col sm:flex-row justify-center items-center">
             <div className="flex w-full p-4">
-              <input className="w-full p-4" placeholder="Add your skills, seperete them with (,) comma."/>
+              <div onInput={handleAddSkills} onBlur={handleSkillSepration} className="w-full p-4 bg-white content" placeholder="Add your skills, seperete them with (,) comma." contentEditable={true}>
+              {skills.map(skill => <span key={skill} className='p-2 ml-2 bg-neutral-200 rounded-md'>{skill}</span>)}
+
+               
+              </div>
             </div>
             <div className="flex w-full p-4">
               <input className="w-full p-4" placeholder="Your Linkedin Profile" />
