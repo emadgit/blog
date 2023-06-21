@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { convertToRaw } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
 import { api } from "../utils/api";
+import { useRouter } from 'next/router';
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
@@ -21,6 +22,7 @@ export const CreatePost: React.FC = () => {
   const mutation = api.blog.createBlogPost.useMutation();
   const { data: categories } = api.blog.listBlogPostCategories.useQuery();
   const [postCategory, setPostCategory] = useState<string>("");
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,7 +39,7 @@ export const CreatePost: React.FC = () => {
     setPostTitle(e.target.value);
   };
 
-  const handleNewPost = () => {
+  const handleNewPost = async () => {
     if (!postEntry || !postTitle) {
       setError(
         "Please check if you add a title for your post or if you write something in the post before submit."
@@ -63,10 +65,10 @@ export const CreatePost: React.FC = () => {
         post: formattedPost,
         category: postCategory, // Todo: Let selecting multiple categories
       });
-      setFeedback("Baaam! A new post is just created.");
-      setTimeout(() => {
-        setFeedback("");
-      }, 5000);
+      await router.push({
+        pathname: '/blog-dashboard/feedback',
+        query: { feedback: "Aye Aye Captain, your new post succesfully published 🚀"}
+      });
     }
     return;
   };
@@ -117,7 +119,7 @@ export const CreatePost: React.FC = () => {
           </div>
           <div className="flex flex-row-reverse ">
             <button
-              onClick={handleNewPost}
+              onClick={() => handleNewPost}
               className="h-8 w-24 flex-initial items-center justify-center border-2 border-slate-600 bg-zinc-200 shadow-md hover:bg-transparent"
               disabled={!postTitle}
             >

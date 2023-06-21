@@ -25,7 +25,7 @@ export const findBlogPost = protectedProcedure
       where: { id: postCategory?.categoryId },
     });
 
-    let blogPostWithCategory: BlogPost = {
+    const blogPostWithCategory: BlogPost = {
       ...blogPost,
       category: "",
     };

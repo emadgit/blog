@@ -16,22 +16,19 @@ const EditPost: NextPage = () => {
 
   useEffect(()=> {
     const redirectUser = async () => {
-      if (sessionData) {
-        const postId = searchParams.get("id");
-        if(postId) { 
-          console.log("postId: ", postId);
-          setPostId(postId);
-        }
-        await router.replace(`/blog-dashboard/edit-post/${postId}`);
-      } else {
+      const id = searchParams.get("id");
+      if(id) { 
+        setPostId(id);
+      }
+      if (!sessionData) {
         await router.replace('/login');
       }
     };
   
-    redirectUser().catch((error) => {
+    redirectUser().then().catch((error) => {
       console.error(error);
     });
-  },[sessionData]);
+  },[sessionData, router]);
   
   return (
     sessionData &&  <>
@@ -40,7 +37,7 @@ const EditPost: NextPage = () => {
         <div className="flex h-full flex-col-reverse bg-gray-300 sm:h-full sm:flex-row">
           <BlogNavbar />
           <div className="flex flex-1 flex-col bg-white h-fit sm:h-full overflow-auto w-full">
-            <EditPostComponent postId={postId} />
+            { postId && <EditPostComponent postId={postId} /> }
           </div>
         </div>
       </main>

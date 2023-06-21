@@ -1,12 +1,11 @@
-import { EditorState, RawDraftContentState, ContentState } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import { convertToRaw, convertFromRaw } from "draft-js";
+import { convertToRaw, convertFromRaw, EditorState, ContentState } from "draft-js";
 import * as draftToHtml from "draftjs-to-html";
 import { api } from "../utils/api";
-import { BlogPost } from "../utils/types";
 import {stateFromHTML} from 'draft-js-import-html';
+import { useRouter } from 'next/router';
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then(({ Editor }) => Editor),
@@ -23,10 +22,9 @@ const EditPost: React.FC<EditPostProps> = ({
     postId
 }) => {
   const [postEntry, setPostEntry] = useState<EditorState>();
-  const [postEntryLoaded, setPostEntryLoaded] = useState<ContentState>();
+  const router = useRouter();
 
   const [postTitle, setPostTitle] = useState<string>("");
-  const [ currentPost, setCurrentPost] = useState<BlogPost>();
   const [error, setError] = useState<string>();
   const [feedback, setFeedback] = useState<string>();
   const mutation = api.blog.editBlogPost.useMutation();
@@ -35,12 +33,16 @@ const EditPost: React.FC<EditPostProps> = ({
   const [postCategory, setPostCategory] = useState<string>("");
 
   useEffect(()=> {
+    console.log("postId: ", postId)
     if(!isCurretnPostLoading && postData &&  typeof postData !== "string"){
-        // const contentState = stateFromHTML(postData.content);
-        // const editorState = EditorState.createWithContent(contentState);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+        const contentState = stateFromHTML(postData.content);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const editorState = EditorState.createWithContent(contentState);
 
-        // setPostEntry(editorState);
-        setCurrentPost(postData);
+        setPostEntry(editorState);
+        setPostTitle(postData.title);
+        setPostCategory(postData.category)
     }
   }, [isCurretnPostLoading, postData]);
 
@@ -59,7 +61,7 @@ const EditPost: React.FC<EditPostProps> = ({
     setPostTitle(e.target.value);
   };
 
-  const handleEditPost = () => {
+  const handleEditPost =  async () => {
     if (!postEntry || !postTitle) {
       setError(
         "Please check if you add a title for your post or if you write something in the post before submit."
@@ -72,6 +74,7 @@ const EditPost: React.FC<EditPostProps> = ({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         draftToHtml(convertToRaw(postEntry.getCurrentContent()))
       );
+
 
       if (formattedPost === "<p></p>") {
         setError(
@@ -86,10 +89,11 @@ const EditPost: React.FC<EditPostProps> = ({
         post: formattedPost,
         category: postCategory, // Todo: Let selecting multiple categories
       });
-      setFeedback("Baaam! A new post is just created.");
-      setTimeout(() => {
-        setFeedback("");
-      }, 5000);
+      await router.push({
+        pathname: '/blog-dashboard/feedback',
+        query: { feedback: "Your post succesfully updated and published 🚀"}
+      });
+
     }
     return;
   };
@@ -108,7 +112,7 @@ const EditPost: React.FC<EditPostProps> = ({
           <input
             className="border-1 w-full rounded border-neutral-900 p-2"
             type="text"
-            value={currentPost?.title}
+            value={postTitle}
             onChange={handlePostTitle}
             placeholder="Post title"
           />
@@ -127,9 +131,9 @@ const EditPost: React.FC<EditPostProps> = ({
             }}
           />
           <div className="flex flex-col w-2/4">
-          <select className="p-2" onChange={handleCategory}>
+          <select className="p-2" onChange={handleCategory} value={postCategory}>
             <option>Select post category</option>
-            {categories && categories.map((category)=> <option selected={currentPost?.category === category.name} key={category.id}>{category.name}</option>)}
+            {categories && categories.map((category)=> <option value={category.name} key={category.id}>{category.name}</option>)}
           </select>
           </div>
           <div className="flex flex-row-reverse ">
@@ -140,11 +144,11 @@ const EditPost: React.FC<EditPostProps> = ({
           </div>
           <div className="flex flex-row-reverse ">
             <button
-              onClick={handleEditPost}
+              onClick={() => handleEditPost}
               className="h-8 w-24 flex-initial items-center justify-center border-2 border-slate-600 bg-zinc-200 shadow-md hover:bg-transparent"
               disabled={!postTitle}
             >
-              <div className="flex flex-1 justify-center">Post</div>
+              <div className="flex flex-1 justify-center">Edit</div>
             </button>
           </div>
         </div>

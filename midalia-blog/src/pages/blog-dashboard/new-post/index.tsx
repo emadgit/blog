@@ -23,7 +23,7 @@ const NewPost: NextPage = () => {
     redirectUser().catch((error) => {
       console.error(error);
     });
-  },[sessionData]);
+  },[sessionData, router]);
   
   return (
     sessionData &&  <>
