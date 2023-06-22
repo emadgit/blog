@@ -61,7 +61,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    bio           Bio?
+    profile       Profile?
     posts         Post[]
     comments      Comment[]
     categories    Category[]
@@ -75,25 +75,24 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Bio {
-    id          String   @id @default(cuid())
-    jobTitle    String
-    description String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    ownerId     String   @unique
-    owner       User     @relation(fields: [ownerId], references: [id])
-    skills      Skills[]
-}
-
-model Skills {
-    id        String   @id @default(cuid())
-    title     String   @unique
-    url       String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    ownerId   String   @unique
-    owner     Bio      @relation(fields: [ownerId], references: [id])
+model Profile {
+    id                   String   @id @default(cuid())
+    firstName            String?
+    lastName             String?
+    company              String?
+    jobTitle             String?
+    bio                  String?
+    contactContent       String?
+    githubProfile        String?
+    linkedinProfile      String?
+    stackoverflowProfile String?
+    mediumProfile        String?
+    twitterProfile       String?
+    createdAt            DateTime @default(now())
+    updatedAt            DateTime @updatedAt
+    ownerId              String   @unique
+    owner                User     @relation(fields: [ownerId], references: [id])
+    skills               String?
 }
 
 model Post {
