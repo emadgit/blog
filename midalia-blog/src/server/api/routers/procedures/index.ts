@@ -8,6 +8,7 @@ import { deleteBlogPostCategory } from "./deleteBlogPostCategory";
 import { updateBlogIdentifier } from "./updateBlogIdentifier";
 import { editBlogPost } from "./editBlogPost";
 import { findBlogPost } from "./findBlogPost";
+import { editProfile } from "./editProfile";
 
 export {
   deleteBlogPost,
@@ -20,4 +21,5 @@ export {
   updateBlogIdentifier,
   editBlogPost,
   findBlogPost,
+  editProfile,
 };

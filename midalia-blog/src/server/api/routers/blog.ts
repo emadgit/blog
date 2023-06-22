@@ -11,6 +11,7 @@ import {
   updateBlogIdentifier,
   editBlogPost,
   findBlogPost,
+  editProfile,
 } from "./procedures";
 
 export const blogRouter = createTRPCRouter({
@@ -24,4 +25,5 @@ export const blogRouter = createTRPCRouter({
   updateBlogIdentifier,
   editBlogPost,
   findBlogPost,
+  editProfile,
 });
