@@ -3,6 +3,7 @@ import { useState } from "react";
 export const ProfileEditableForm: React.FC = () => {
   const [skillsInput, setSKillsInput] = useState<string>("");
   const [skills, setSkills] = useState<string[]>([]);
+  const [firstName, setFirstName] = useState<string>();
   const handleAddSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target);
     const input = e.target.innerText;
@@ -13,6 +14,10 @@ export const ProfileEditableForm: React.FC = () => {
     e.target.innerText = "";
     setSkills(skillsInput.split(","));
   };
+
+  const handleFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ export const ProfileEditableForm: React.FC = () => {
               <label>First Name</label>
             </div>
 
-            <input className="w-full p-4" />
+            <input onChange={handleFirstName} className="w-full p-4" />
           </div>
           <div className="flex w-full flex-col p-4">
             <div className="flex text-slate-700">
@@ -50,6 +55,7 @@ export const ProfileEditableForm: React.FC = () => {
               className="content w-full bg-white p-4"
               placeholder="Add your skills, seperete them with (,) comma."
               contentEditable={true}
+              suppressContentEditableWarning={true}
             >
               {skills.map((skill) => (
                 <span
