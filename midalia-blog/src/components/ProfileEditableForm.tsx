@@ -24,6 +24,24 @@ export const ProfileEditableForm: React.FC = () => {
           <div className="flex w-full flex-col p-4">
             <div className="flex text-slate-700">
               {" "}
+              <label>First Name</label>
+            </div>
+
+            <input className="w-full p-4" />
+          </div>
+          <div className="flex w-full flex-col p-4">
+            <div className="flex text-slate-700">
+              {" "}
+              <label>Last Name</label>
+            </div>
+
+            <input className="w-full p-4" />
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center sm:flex-row">
+          <div className="flex w-full flex-col p-4">
+            <div className="flex text-slate-700">
+              {" "}
               <label>Add your skills, seperete them with (,) comma.</label>
             </div>
             <div
@@ -47,6 +65,23 @@ export const ProfileEditableForm: React.FC = () => {
           <div className="flex w-full flex-col p-4">
             <div className="flex text-slate-700">
               {" "}
+              <label>Job title</label>
+            </div>
+            <input className="w-full p-4" />
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center sm:flex-row">
+          <div className="flex w-full flex-col p-4">
+            <div className="flex text-slate-700">
+              {" "}
+              <label>Current company</label>
+            </div>
+
+            <input className="w-full p-4" />
+          </div>
+          <div className="flex w-full flex-col p-4">
+            <div className="flex text-slate-700">
+              {" "}
               <label>Your Linkedin Profile</label>
             </div>
 
@@ -54,7 +89,7 @@ export const ProfileEditableForm: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center sm:flex-row">
-        <div className="flex w-full flex-col p-4">
+          <div className="flex w-full flex-col p-4">
             <div className="flex text-slate-700">
               {" "}
               <label>Your Stackoverflow Profile</label>
@@ -72,7 +107,7 @@ export const ProfileEditableForm: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center sm:flex-row">
-        <div className="flex w-full flex-col p-4">
+          <div className="flex w-full flex-col p-4">
             <div className="flex text-slate-700">
               {" "}
               <label>Your Github Profile</label>
