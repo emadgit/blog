@@ -38,7 +38,7 @@ const Home: NextPage = () => {
                     />
                   </div>
                   <p className="mt-8 flex w-full flex-1 text-center sm:text-justify text-xl">
-                    Hi there! I&apos;m Emad Dehnavi, a Senior Software Engineer with a
+                    Hi there! I&apos;m Emad, a Senior Software Engineer with a
                     passion for Web & Mobile developments with collaboration,
                     pair programming, and teaching. Here are some of the
                     technologies I&apos;m currently working with:
