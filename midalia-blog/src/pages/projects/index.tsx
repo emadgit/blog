@@ -92,7 +92,40 @@ const Projects: NextPage = () => {
                         Web
                       </a>
                       <a
-                        href={"#"}
+                        href={"https://play.google.com/store/apps/details?id=com.midalia.FoodFactsFinder"}
+                        className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Android
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
+                  <img
+                    className="w-full"
+                    src={"/projects/funny-jokes.png"}
+                    alt={"Food Fact Finder"}
+                  />
+                  <div className="px-6 py-4">
+                    <div className="mb-2 text-xl font-bold">
+                      Funny English jokes
+                    </div>
+                    <div className="text-md mb-2 mt-2 font-normal">
+                    Funny English Jokes to laugh is here, Get ready for a rib-tickling experience with our brand-new app! Unleash a world of humor at your fingertips as we deliver fresh and hilarious jokes daily. Whether you're in need of a quick pick-me-up or seeking a mood boost, we will leave you grinning from ear to ear. Dive into a laughter-filled journey with our carefully curated collection of witty quips, puns, and one-liners. Get ready turn every moment into a joyous celebration of laughter!
+                    </div>
+                    <div className="mb-4 flex">
+                      <a
+                        href={"https://midalia-joker.vercel.app/"}
+                        className="mr-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Web
+                      </a>
+                      <a
+                        href={"https://play.google.com/store/apps/details?id=com.midalia.wittyjokebox"}
                         className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                         target="_blank"
                         rel="noopener noreferrer"
