@@ -41,6 +41,7 @@ export const CreatePost: React.FC = () => {
 
   const handleNewPost = async () => {
     console.log("Is this happening?")
+    alert("Are we really doing this???");
     if (!postEntry || !postTitle) {
       console.log("content does not exist?", postTitle)
       console.log("content does not exist?", postEntry)
