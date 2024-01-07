@@ -98,7 +98,7 @@ model Profile {
 model Post {
     id             String         @id @default(cuid())
     title          String
-    content        String
+    content        String @db.LongText
     published      Boolean
     createdAt      DateTime       @default(now())
     updatedAt      DateTime       @updatedAt
@@ -123,7 +123,7 @@ model PostCategory {
 
 model Comment {
     id        String   @id @default(cuid())
-    content   String
+    content   String @db.LongText
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     postId    String
