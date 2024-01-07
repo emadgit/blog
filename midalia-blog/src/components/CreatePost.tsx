@@ -42,7 +42,7 @@ export const CreatePost: React.FC = () => {
   const handleNewPost = async () => {
     if (!postEntry || !postTitle) {
       setError(
-        "Please check if you add a title for your post or if you write something in the post before submit."
+        "Please check if you add a title for your post or if you write something in the post before submit!"
       );
       return;
     }
