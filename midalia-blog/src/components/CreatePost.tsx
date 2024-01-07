@@ -40,7 +40,11 @@ export const CreatePost: React.FC = () => {
   };
 
   const handleNewPost = async () => {
+    console.log("Is this happening?")
     if (!postEntry || !postTitle) {
+      console.log("content does not exist?", postTitle)
+      console.log("content does not exist?", postEntry)
+
       setError(
         "Please check if you add a title for your post or if you write something in the post before submit!"
       );
