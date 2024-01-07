@@ -123,7 +123,7 @@ export const CreatePost: React.FC = () => {
           </div>
           <div className="flex flex-row-reverse ">
             <button
-              onClick={() => handleNewPost}
+              onClick={handleNewPost}
               className="h-8 w-24 flex-initial items-center justify-center border-2 border-slate-600 bg-zinc-200 shadow-md hover:bg-transparent"
               disabled={!postTitle}
             >
