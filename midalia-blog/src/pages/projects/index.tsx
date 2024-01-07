@@ -34,10 +34,12 @@ const Projects: NextPage = () => {
 
 
                 <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
-                  <img
+                  <Image
                     className="w-full"
                     src={"/projects/QuizzyWiz.png"}
                     alt={"Quizzy Wiz"}
+                    width={800}
+                    height={500}
                   />
                   <div className="px-6 py-4">
                     <div className="mb-2 text-xl font-bold">
@@ -67,10 +69,12 @@ const Projects: NextPage = () => {
                   </div>
                 </div>
                 <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
-                  <img
+                  <Image
                     className="w-full"
                     src={"/projects/food-fact-finder.png"}
                     alt={"Food Fact Finder"}
+                    width={800}
+                    height={500}
                   />
                   <div className="px-6 py-4">
                     <div className="mb-2 text-xl font-bold">
@@ -103,17 +107,19 @@ const Projects: NextPage = () => {
                   </div>
                 </div>
                 <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
-                  <img
+                  <Image
                     className="w-full"
                     src={"/projects/funny-jokes.png"}
                     alt={"Food Fact Finder"}
+                    width={800}
+                    height={500}
                   />
                   <div className="px-6 py-4">
                     <div className="mb-2 text-xl font-bold">
                       Funny English jokes
                     </div>
                     <div className="text-md mb-2 mt-2 font-normal">
-                    Funny English Jokes to laugh is here, Get ready for a rib-tickling experience with our brand-new app! Unleash a world of humor at your fingertips as we deliver fresh and hilarious jokes daily. Whether you're in need of a quick pick-me-up or seeking a mood boost, we will leave you grinning from ear to ear. Dive into a laughter-filled journey with our carefully curated collection of witty quips, puns, and one-liners. Get ready turn every moment into a joyous celebration of laughter!
+                      {`Funny English Jokes to laugh is here, Get ready for a rib-tickling experience with our brand-new app! Unleash a world of humor at your fingertips as we deliver fresh and hilarious jokes daily. Whether you're in need of a quick pick-me-up or seeking a mood boost, we will leave you grinning from ear to ear. Dive into a laughter-filled journey with our carefully curated collection of witty quips, puns, and one-liners. Get ready turn every moment into a joyous celebration of laughter!`}
                     </div>
                     <div className="mb-4 flex">
                       <a
