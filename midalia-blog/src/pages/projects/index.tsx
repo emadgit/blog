@@ -32,8 +32,48 @@ const Projects: NextPage = () => {
                   </Link>
                 </div>
 
+                <div className="mx-auto max-w-sm overflow-hidden pt-4 shadow-lg md:max-w-2xl">
+                  <Image
+                    className="w-full"
+                    src={"/projects/word.png"}
+                    alt={"Wordle Puzzle"}
+                    unoptimized={true}
+                    width={800}
+                    height={500}
+                  />
+                  <div className="px-6 py-4">
+                    <div className="mb-2 text-xl font-bold">Wordle Puzzle</div>
+                    <div className="text-md mb-2 mt-2 font-normal">
+                      Dive into the magical world of word puzzles with Wordle
+                      Puzzle! Challenge your vocabulary and strategy skills as
+                      you guess the hidden word in just six tries. Whether you
+                      are a wordsmith or a casual player, Wordle Wizard offers
+                      endless fun and brain-teasing excitement.
+                    </div>
+                    <div className="mb-4 flex">
+                      <a
+                        href={"https://midalia-wordle-puzzle.vercel.app/"}
+                        className="mr-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Web
+                      </a>
+                      <a
+                        href={
+                          "https://play.google.com/store/apps/details?id=com.midalia.wordle"
+                        }
+                        className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Android
+                      </a>
+                    </div>
+                  </div>
+                </div>
 
-                <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
+                <div className="mx-auto max-w-sm overflow-hidden pt-4 shadow-lg md:max-w-2xl">
                   <Image
                     className="w-full"
                     src={"/projects/QuizzyWiz.png"}
@@ -42,11 +82,13 @@ const Projects: NextPage = () => {
                     height={500}
                   />
                   <div className="px-6 py-4">
-                    <div className="mb-2 text-xl font-bold">
-                      Quizzy Wiz
-                    </div>
+                    <div className="mb-2 text-xl font-bold">Quizzy Wiz</div>
                     <div className="text-md mb-2 mt-2 font-normal">
-                    The ultimate trivia quiz app that challenges and delights knowledge seekers of all kinds! With an array of exciting categories including History, Sport, Music, Movies, and the World, Quizzy Wiz is your passport to an enthralling world of facts and fun.
+                      The ultimate trivia quiz app that challenges and delights
+                      knowledge seekers of all kinds! With an array of exciting
+                      categories including History, Sport, Music, Movies, and
+                      the World, Quizzy Wiz is your passport to an enthralling
+                      world of facts and fun.
                     </div>
                     <div className="mb-4 flex">
                       <a
@@ -58,7 +100,9 @@ const Projects: NextPage = () => {
                         Web
                       </a>
                       <a
-                        href={"https://play.google.com/store/apps/details?id=com.midalia.QuizzyWiz"}
+                        href={
+                          "https://play.google.com/store/apps/details?id=com.midalia.QuizzyWiz"
+                        }
                         className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -68,7 +112,7 @@ const Projects: NextPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
+                <div className="mx-auto max-w-sm overflow-hidden pt-4 shadow-lg md:max-w-2xl">
                   <Image
                     className="w-full"
                     src={"/projects/food-fact-finder.png"}
@@ -96,7 +140,9 @@ const Projects: NextPage = () => {
                         Web
                       </a>
                       <a
-                        href={"https://play.google.com/store/apps/details?id=com.midalia.FoodFactsFinder"}
+                        href={
+                          "https://play.google.com/store/apps/details?id=com.midalia.FoodFactsFinder"
+                        }
                         className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -106,7 +152,7 @@ const Projects: NextPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mx-auto max-w-sm md:max-w-2xl overflow-hidden pt-4 shadow-lg">
+                <div className="mx-auto max-w-sm overflow-hidden pt-4 shadow-lg md:max-w-2xl">
                   <Image
                     className="w-full"
                     src={"/projects/funny-jokes.png"}
@@ -131,7 +177,9 @@ const Projects: NextPage = () => {
                         Web
                       </a>
                       <a
-                        href={"https://play.google.com/store/apps/details?id=com.midalia.wittyjokebox"}
+                        href={
+                          "https://play.google.com/store/apps/details?id=com.midalia.wittyjokebox"
+                        }
                         className="rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700"
                         target="_blank"
                         rel="noopener noreferrer"
