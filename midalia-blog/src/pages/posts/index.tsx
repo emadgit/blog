@@ -1,10 +1,10 @@
 import { type NextPage } from "next";
 import Link from "next/link";
-import { Chakra_Petch } from 'next/font/google'
+import { Chakra_Petch } from "next/font/google";
 
 import PageHead from "../../components/PageHead";
 import { api } from "../../utils/api";
-import { format } from 'date-fns'
+import { format } from "date-fns";
 import ReactHtmlParser from "react-html-parser";
 
 let hostName = "";
@@ -13,10 +13,10 @@ if (typeof window !== "undefined") {
 }
 
 const ChakraPatch = Chakra_Petch({
-  subsets: ['latin'],
-  variable: '--font-chakra-patch',
-  weight: "600"
-})
+  subsets: ["latin"],
+  variable: "--font-chakra-patch",
+  weight: "600",
+});
 
 const Posts: NextPage = () => {
   const blogPosts = api.blog.listBlogPostsPublic.useQuery({ hostName });
@@ -34,9 +34,9 @@ const Posts: NextPage = () => {
                   <Link href="/" className="text-l font-bold text-slate-100/70">
                     About
                   </Link>
-                  <Link href="/posts" className="text-l border-b-4 font-bold">
+                  {/* <Link href="/posts" className="text-l border-b-4 font-bold">
                     Posts
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/projects"
                     className="text-l font-bold text-slate-100/70"
@@ -47,14 +47,30 @@ const Posts: NextPage = () => {
 
                 <>
                   {blogPosts?.data?.map((post) => (
-                    <div key={post.id} className="flex flex-col w-full bg-slate-50 mt-4 text-black p-8 shadow-md shadow-black">
-                      <div className={`text-3xl ${ChakraPatch.variable} font-sans font-bold`}>{post.title}</div>
-                      <div className={`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600`}>{format(post.updatedAt, "PP")}</div>
-                      <div className="`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600 pt-2 pb-2 flex flex-col gap-2">{ReactHtmlParser(post.content)}</div>
-                      <div className="`flex flex-1 text-sm ${ChakraPatch.variable} font-sans font-bold pt-2 pb-2 bg-sky-100 w-fit p-2 rounded-xl" style={{color: "#37afc0"}}>{post.category}</div>
-
+                    <div
+                      key={post.id}
+                      className="mt-4 flex w-full flex-col bg-slate-50 p-8 text-black shadow-md shadow-black"
+                    >
+                      <div
+                        className={`text-3xl ${ChakraPatch.variable} font-sans font-bold`}
+                      >
+                        {post.title}
+                      </div>
+                      <div
+                        className={`text-l ${ChakraPatch.variable} font-sans font-bold text-slate-600`}
+                      >
+                        {format(post.updatedAt, "PP")}
+                      </div>
+                      <div className="`text-l ${ChakraPatch.variable} flex flex-col gap-2 pb-2 pt-2 font-sans font-bold text-slate-600">
+                        {ReactHtmlParser(post.content)}
+                      </div>
+                      <div
+                        className="`flex ${ChakraPatch.variable} w-fit flex-1 rounded-xl bg-sky-100 p-2 pb-2 pt-2 font-sans text-sm font-bold"
+                        style={{ color: "#37afc0" }}
+                      >
+                        {post.category}
+                      </div>
                     </div>
-                    
                   ))}
                 </>
                 {!blogPosts ||

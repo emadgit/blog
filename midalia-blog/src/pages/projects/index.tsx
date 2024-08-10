@@ -18,12 +18,12 @@ const Projects: NextPage = () => {
                   <Link href="/" className="text-l font-bold text-slate-100/70">
                     About
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/posts"
                     className="text-l font-bold text-slate-100/70"
                   >
                     Posts
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/projects"
                     className="text-l border-b-4 font-bold"
